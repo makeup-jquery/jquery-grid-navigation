@@ -1,0 +1,11 @@
+.npmignore
+.npmrc
+.travis.yml
+.eslintrc
+karma.conf.js
+lint.txt
+test.js
+test_reports
+
+test-data.js
+test-setup.js

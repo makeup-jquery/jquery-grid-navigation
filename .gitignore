@@ -1,0 +1,28 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directory
+node_modules
+
+# Users Environment Variables
+.lock-wscript
+
+# Test coverage and unit test reports
+test_reports
+
+# Lint output
+lint.txt
+
+# JSDoc output
+jsdoc
+
+# Lasso
+.cache
+build
+docs/browser.js.*

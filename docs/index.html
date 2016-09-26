@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Demo: jquery-grid-navigation</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    </head>
+    <body>
+        <div role="main">
+            <h1>Demo: jquery-grid-navigation</h1>
+            <p>Set focus on grid, then use ARROW keys. This plugin does not do any focus management, it only handles state, and triggers an event on state change.</p>
+            <p>View developer console to see output.</p>
+            <table>
+                <caption>Grid</caption>
+                <tbody class="widget" tabindex="0">
+                    <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+                    <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+                </tbody>
+            </table>
+            <p><button id="append-row">Append Row</button></p>
+            <p>
+                <label>CurrentCol: <input id="currentCol" type="text" readonly disabled value="0"></label>
+                <label>CurrentRow: <input id="currentRow" type="text" readonly disabled value="0"></label>
+                <label>CurrentIndex <input id="currentIndex" type="text" readonly disabled value="0"></label>
+            </p>
+        </div>
+
+        <script src="browser.js"></script>
+        <script>
+            $(function() {
+                var count = 14;
+                var $currentColInput = $('#currentCol');
+                var $currentRowInput = $('#currentRow');
+                var $currentIndexInput = $('#currentIndex');
+
+                $("tbody").gridNavigation('td');
+
+                $("tbody").on('gridNavigationChange', function(e, data) {
+                    console.log(e.type, e, data);
+                    $currentColInput.val(data.to.col);
+                    $currentRowInput.val(data.to.row);
+                    $currentIndexInput.val(data.to.index);
+                });
+
+                $('#append-row').on('click', function() {
+                    var $tr = $('<tr>');
+
+                    for(var i = 0; i < 7; i++) {
+                        $tr.append($('<td>{x}</td>'.replace('{x}', ++count)));
+                    }
+
+                    $("tbody").append($tr);
+                    $("tbody").gridNavigation('td');
+                })
+            });
+        </script>
+    </body>
+</html>
