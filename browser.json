@@ -2,6 +2,7 @@
     "dependencies":[
         {"require-run": "jquery"},
         "jquery-common-keydown",
+        "jquery-focus-exit",
         "jquery.gridnavigation.js"
     ]
 }

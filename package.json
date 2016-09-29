@@ -12,7 +12,7 @@
     "fix": "eslint jquery.*.js --fix",
     "jsdoc": "jsdoc jquery.gridnavigation.js -d jsdoc",
     "lasso": "lasso browser.json --output-dir docs --minify",
-    "lint": "eslint jquery.*.js > lint.txt",
+    "lint": "eslint jquery.gridnavigation.js > lint.txt",
     "minify": "jsmin -o jquery.gridnavigation.min.js jquery.gridnavigation.js",
     "server": "browser-sync start -s --ss docs --index docs/index.html --files docs ",
     "watch": "onchange jquery.gridnavigation.js -- npm run lasso"
@@ -43,6 +43,7 @@
     "jasmine-core": "^2",
     "jquery": ">=1.11",
     "jquery-common-keydown": "~0.3",
+    "jquery-focus-exit": "~0.3",
     "jquery-migrate": "^3",
     "jsdoc": "^3",
     "jsmin": "^1",
@@ -61,7 +62,8 @@
   },
   "peerDependencies": {
     "jquery": ">=1.11",
-    "jquery-common-keydown": "~0.3"
+    "jquery-common-keydown": "~0.3",
+    "jquery-focus-exit": "~0.3"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
