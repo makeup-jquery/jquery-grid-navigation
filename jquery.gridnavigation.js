@@ -1,7 +1,7 @@
 /**
 * @file jQuery collection plugin that implements the input and model for two-dimensional keyboard navigation
 * @author Ian McBurnie <ianmcburnie@hotmail.com>
-* @version 0.0.1
+* @version 0.0.2
 * @requires jquery
 * @requires jquery-common-keydown
 * @requires jquery-focus-exit
@@ -16,8 +16,8 @@
     * @param {string} [options.activeIndex] - the initial active index (default: 0)
     * @param {boolean} [options.autoInit] - init the model when plugin executes (default: true)
     * @param {boolean} [options.autoReset] - reset the model when focus is lost (default: false)
+    * @param {boolean} [options.autoWrap] - keyboard focus wraps from last to first & vice versa (default: false)
     * @param {boolean} [options.debug] - log debug info to console (default: false)
-    * @param {boolean} [options.wrap] - keyboard focus wraps from last to first & vice versa (default: false)
     * @fires gridNavigationInit - when the model intialises
     * @fires gridNavigationChange - when the current item changes
     * @fires gridNavigationReset - when the model resets
@@ -28,7 +28,7 @@
         options = $.extend({
             activeIndex: 0,
             debug: false,
-            wrap: false,
+            autoWrap: false,
             autoReset: false,
             autoInit: true
         }, options);
@@ -140,15 +140,28 @@
 
                     if (goToCol < 0) {
                         boundary = "left";
+                        goToCol = numCols - 1;
                     } else if (goToCol >= numCols) {
                         boundary = "right";
+                        goToCol = 0;
                     } else if (goToRow < 0) {
                         boundary = "top";
+                        goToRow = numRows - 1;
                     } else if (goToRow >= numRows) {
                         boundary = "bottom";
+                        goToRow = 0;
                     }
 
-                    if (boundary === undefined) {
+                    if (boundary !== undefined) {
+                        eventData = {
+                            fromIndex: currentCellData.index,
+                            toIndex: null,
+                            boundary: boundary
+                        };
+                        $(currentCell).trigger("gridNavigationBoundary", eventData);
+                    }
+
+                    if (boundary === undefined || options.autoWrap === true) {
                         goToCell = getCellByCoords(goToCol, goToRow);
                         goToCellData = $.data(goToCell, pluginName);
 
@@ -161,13 +174,6 @@
 
                         currentCol = goToCol;
                         currentRow = goToRow;
-                    } else {
-                        eventData = {
-                            fromIndex: currentCellData.index,
-                            toIndex: null,
-                            boundary: boundary
-                        };
-                        $(currentCell).trigger("gridNavigationBoundary", eventData);
                     }
                 };
 
