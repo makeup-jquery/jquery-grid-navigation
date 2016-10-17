@@ -1,7 +1,7 @@
 /**
 * @file jQuery collection plugin that implements the input and model for two-dimensional keyboard navigation
 * @author Ian McBurnie <ianmcburnie@hotmail.com>
-* @version 0.0.2
+* @version 0.0.3
 * @requires jquery
 * @requires jquery-common-keydown
 * @requires jquery-focus-exit
@@ -11,10 +11,10 @@
 
     /**
     * @method "jQuery.fn.gridNavigation"
-    * @param {Object} cellsSelector - collection of navigable elements
+    * @param {Object} cellsSelector - collection of navigable grid cells
     * @param {Object} [options]
     * @param {string} [options.activeIndex] - the initial active index (default: 0)
-    * @param {boolean} [options.autoInit] - init the model when plugin executes (default: true)
+    * @param {boolean} [options.autoInit] - initialise the model before a key is pressed (default: false)
     * @param {boolean} [options.autoReset] - reset the model when focus is lost (default: false)
     * @param {boolean} [options.autoWrap] - keyboard focus wraps from last to first & vice versa (default: false)
     * @param {boolean} [options.debug] - log debug info to console (default: false)
@@ -30,7 +30,9 @@
             debug: false,
             autoWrap: false,
             autoReset: false,
-            autoInit: true
+            autoInit: false,
+            disableHomeAndEndKeys: false,
+            disablePageUpAndDownKeys: false
         }, options);
 
         return this.each(function onEachGridNavigationWidget() {
@@ -224,11 +226,37 @@
                     }
                 };
 
+                var onHomeKey = function(e) {
+                    updateModelByCol(0);
+                };
+
+                var onEndKey = function(e) {
+                    updateModelByCol(numCols - 1);
+                };
+
+                var onPageUpKey = function(e) {
+                    updateModelByRow(0);
+                };
+
+                var onPageDownKey = function(e) {
+                    updateModelByRow(numRows - 1);
+                };
+
                 // install commonKeyDown plugin to bound element
                 $widget.commonKeyDown();
 
                 // listen for arrow key events
                 $widget.on('upArrowKeyDown downArrowKeyDown rightArrowKeyDown leftArrowKeyDown', onArrowKeyDown);
+
+                if (options.disableHomeAndEndKeys === false) {
+                    $widget.on('homeKeyDown', onHomeKey);
+                    $widget.on('endKeyDown', onEndKey);
+                }
+
+                if (options.disablePageUpAndDownKeys === false) {
+                    $widget.on('pageDownKeyDown', onPageDownKey);
+                    $widget.on('pageUpKeyDown', onPageUpKey);
+                }
 
                 // delegate cell click events to the widget
                 $widget.on('click', cellsSelector, function(e) {

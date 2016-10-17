@@ -45,16 +45,6 @@
             <p>View developer console to see all debug output.</p>
             <div id="tables">
                 <table>
-                    <caption>No Reset, Auto Init</caption>
-                    <tbody class="widget widget--no-reset-init" tabindex="0">
-                        <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
-                        <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
-                    </tbody>
-                    <tfoot>
-                        <tr><td colspan="7"><textarea readonly disabled></textarea></td></tr>
-                    </tfoot>
-                </table>
-                <table>
                     <caption>No Reset, No Init</caption>
                     <tbody class="widget widget--no-reset-no-init" tabindex="0">
                         <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
@@ -65,8 +55,8 @@
                     </tfoot>
                 </table>
                 <table>
-                    <caption>Auto Reset, Auto Init</caption>
-                    <tbody class="widget widget--reset-init" tabindex="0">
+                    <caption>No Reset, Auto Init</caption>
+                    <tbody class="widget widget--no-reset-init" tabindex="0">
                         <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
                         <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
                     </tbody>
@@ -84,6 +74,16 @@
                         <tr><td colspan="7"><textarea readonly disabled></textarea></td></tr>
                     </tfoot>
                 </table>
+                <table>
+                    <caption>Auto Reset, Auto Init</caption>
+                    <tbody class="widget widget--reset-init" tabindex="0">
+                        <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+                        <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr><td colspan="7"><textarea readonly disabled></textarea></td></tr>
+                    </tfoot>
+                </table>
             </div>
             <p><button id="append-row">Append Row</button></p>
         </div>
@@ -94,12 +94,11 @@
 
                 var $log = $('#log');
 
-                $(".widget--reset-init").gridNavigation('td', {debug: true, autoReset: true, autoInit: true});
                 $(".widget--no-reset-no-init").gridNavigation('td', {debug: true, autoReset: false, autoInit: false});
-
                 $(".widget--reset-no-init").gridNavigation('td', {debug: true, autoReset: true, autoInit: false});
                 $(".widget--no-reset-init").gridNavigation('td', {debug: true, autoReset: false, autoInit: true});
-
+                $(".widget--reset-init").gridNavigation('td', {debug: true, autoReset: true, autoInit: true});
+                
                 $(".widget").on('gridNavigationInit gridNavigationReset gridNavigationChange gridNavigationBoundary', 'td', function(e, data) {
                     console.log(e, e.type, data, this);
 
