@@ -103,7 +103,7 @@
                     currentRow = null;
                     currentCol = null;
 
-                    $(fromCell).trigger("gridNavigationReset", eventData);
+                    $(fromCell).trigger('gridNavigationReset', eventData);
                 };
 
                 var initModel = function() {
@@ -122,7 +122,7 @@
                         currentCol = toCellCoords.col;
                         currentRow = toCellCoords.row;
 
-                        $(toCell).trigger("gridNavigationInit", eventData);
+                        $(toCell).trigger('gridNavigationInit', eventData);
                     }
                 };
 
@@ -145,16 +145,16 @@
                     var eventData;
 
                     if (goToCol < 0) {
-                        boundary = "left";
+                        boundary = 'left';
                         goToCol = numCols - 1;
                     } else if (goToCol >= numCols) {
-                        boundary = "right";
+                        boundary = 'right';
                         goToCol = 0;
                     } else if (goToRow < 0) {
-                        boundary = "top";
+                        boundary = 'top';
                         goToRow = numRows - 1;
                     } else if (goToRow >= numRows) {
-                        boundary = "bottom";
+                        boundary = 'bottom';
                         goToRow = 0;
                     }
 
@@ -164,7 +164,7 @@
                             toIndex: null,
                             boundary: boundary
                         };
-                        $(currentCell).trigger("gridNavigationBoundary", eventData);
+                        $(currentCell).trigger('gridNavigationBoundary', eventData);
                     }
 
                     if (boundary === undefined || options.autoWrap === true) {
@@ -176,7 +176,7 @@
                             toIndex: goToCellData ? goToCellData.index : null
                         };
 
-                        $(goToCell).trigger("gridNavigationChange", eventData);
+                        $(goToCell).trigger('gridNavigationChange', eventData);
 
                         currentCol = goToCol;
                         currentRow = goToRow;
@@ -220,16 +220,16 @@
                         initModel();
                     } else {
                         switch (e.type) {
-                            case "upArrowKeyDown":
+                            case 'upArrowKeyDown':
                                 updateModelByRow(currentRow - 1);
                                 break;
-                            case "downArrowKeyDown":
+                            case 'downArrowKeyDown':
                                 updateModelByRow(currentRow + 1);
                                 break;
-                            case "leftArrowKeyDown":
+                            case 'leftArrowKeyDown':
                                 updateModelByCol(currentCol - 1);
                                 break;
-                            case "rightArrowKeyDown":
+                            case 'rightArrowKeyDown':
                                 updateModelByCol(currentCol + 1);
                                 break;
                             default:
