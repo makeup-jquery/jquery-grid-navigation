@@ -98,7 +98,7 @@
                 $(".widget--reset-no-init").gridNavigation('td', {debug: true, autoReset: true, autoInit: false});
                 $(".widget--no-reset-init").gridNavigation('td', {debug: true, autoReset: false, autoInit: true});
                 $(".widget--reset-init").gridNavigation('td', {debug: true, autoReset: true, autoInit: true});
-                
+
                 $(".widget").on('gridNavigationInit gridNavigationReset gridNavigationChange gridNavigationBoundary', 'td', function(e, data) {
                     console.log(e, e.type, data, this);
 
@@ -113,7 +113,7 @@
                     }
 
                     $("tbody").append($tr);
-                    $("tbody").trigger('gridNavigationItemsChange');
+                    $("tbody").trigger('domChange');
                 })
             });
         </script>

@@ -1,7 +1,7 @@
 /**
 * @file jQuery collection plugin that implements the input and model for two-dimensional keyboard navigation
 * @author Ian McBurnie <ianmcburnie@hotmail.com>
-* @version 0.0.3
+* @version 0.1.0
 * @requires jquery
 * @requires jquery-common-keydown
 * @requires jquery-focus-exit
@@ -15,6 +15,7 @@
     * @param {Object} [options]
     * @param {string} [options.activeIndex] - the initial active index (default: 0)
     * @param {boolean} [options.autoInit] - initialise the model before a key is pressed (default: false)
+    * @param {string} [options.autoInitOnDomChange] - initialise the model when DOM changes (default: false)
     * @param {boolean} [options.autoReset] - reset the model when focus is lost (default: false)
     * @param {boolean} [options.autoWrap] - keyboard focus wraps from last to first & vice versa (default: false)
     * @param {boolean} [options.debug] - log debug info to console (default: false)
@@ -22,6 +23,8 @@
     * @fires gridNavigationChange - when the current item changes
     * @fires gridNavigationReset - when the model resets
     * @fires gridNavigationBoundary - when a grid boundary is hit
+    * @fires gridNavigationItemsChange - when descendant items change
+    * @listens domChange - for changes to widget DOM
     * @return {Object} chainable jQuery class
     */
     $.fn.gridNavigation = function gridNavigation(cellsSelector, options) {
@@ -31,6 +34,7 @@
             autoWrap: false,
             autoReset: false,
             autoInit: false,
+            autoInitOnDomChange: false,
             disableHomeAndEndKeys: false,
             disablePageUpAndDownKeys: false
         }, options);
@@ -39,9 +43,9 @@
             if ($.data(this, pluginName) === undefined) {
                 var $widget = $(this);
                 var $allCells = $widget.find(cellsSelector);
-                var numCells = $allCells.length;
                 var $rows = $allCells.first().parent().parent().children();
                 var $cols = $rows.first().children();
+                var numCells = $allCells.length;
                 var numCols = $cols.length;
                 var numRows = $rows.length;
                 var currentCol = null;
@@ -85,7 +89,7 @@
                 };
 
                 var getCellByCoords = function(col, row) {
-                    return (col !== null && row !== null) ? $rows.eq(row).children().eq(col).get(0) : null;
+                    return (col !== null && col < numCols && row !== null && row < numRows) ? $rows.eq(row).children().eq(col).get(0) : null;
                 };
 
                 var resetModel = function() {
@@ -193,14 +197,22 @@
                     updateModelByCoords($cell.index(), $cell.parent().index());
                 };
 
-                var onGridNavigationItemsChange = function() {
+                var onDomChange = function(e) {
                     $allCells = $widget.find(cellsSelector);
-                    numCells = $allCells.length;
                     $rows = $allCells.first().parent().parent().children();
                     $cols = $rows.first().children();
+
+                    numCells = $allCells.length;
                     numCols = $cols.length;
                     numRows = $rows.length;
+
                     storeData();
+
+                    $widget.trigger('gridNavigationItemsChange');
+
+                    if (options.autoInitOnDomChange === true) {
+                        initModel();
+                    }
                 };
 
                 var onArrowKeyDown = function(e) {
@@ -273,7 +285,7 @@
                 }
 
                 // handle DOM update of navigation items
-                $widget.on('gridNavigationItemsChange', onGridNavigationItemsChange);
+                $widget.on('domChange', onDomChange);
 
                 // we can set the intial active element if arrow key not required
                 if (options.autoInit === true) {
