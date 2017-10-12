@@ -67,7 +67,7 @@
                 var storeData = function() {
                     // store index position on each cell
                     $allCells.each(function(idx, itm) {
-                        $.data(itm, pluginName, {index: idx});
+                        $.data(itm, pluginName, { index: idx });
                     });
                 };
 
@@ -89,7 +89,8 @@
                 };
 
                 var getCellByCoords = function(col, row) {
-                    return (col !== null && col < numCols && row !== null && row < numRows) ? $rows.eq(row).children().eq(col).get(0) : null;
+                    return (col !== null && col < numCols && row !== null && row < numRows)
+                        ? $rows.eq(row).children().eq(col).get(0) : null;
                 };
 
                 var resetModel = function() {
@@ -126,7 +127,7 @@
                     }
                 };
 
-                var onFocusExit = function(e) {
+                var onFocusExit = function() {
                     if (currentRow !== null && currentCol !== null) {
                         if (options.autoInit === false) {
                             resetModel();
@@ -191,13 +192,7 @@
                     updateModelByCoords(currentCol, rowIndex);
                 };
 
-                var updateModelByIndex = function(index) {
-                    var $cell = $($allCells.get(index));
-                    numCells = $allCells.length;
-                    updateModelByCoords($cell.index(), $cell.parent().index());
-                };
-
-                var onDomChange = function(e) {
+                var onDomChange = function() {
                     $allCells = $widget.find(cellsSelector);
                     $rows = $allCells.first().parent().parent().children();
                     $cols = $rows.first().children();
@@ -238,19 +233,19 @@
                     }
                 };
 
-                var onHomeKey = function(e) {
+                var onHomeKey = function() {
                     updateModelByCol(0);
                 };
 
-                var onEndKey = function(e) {
+                var onEndKey = function() {
                     updateModelByCol(numCols - 1);
                 };
 
-                var onPageUpKey = function(e) {
+                var onPageUpKey = function() {
                     updateModelByRow(0);
                 };
 
-                var onPageDownKey = function(e) {
+                var onPageDownKey = function() {
                     updateModelByRow(numRows - 1);
                 };
 
@@ -271,7 +266,7 @@
                 }
 
                 // delegate cell click events to the widget
-                $widget.on('click', cellsSelector, function(e) {
+                $widget.on('click', cellsSelector, function() {
                     var $this = $(this);
                     if (needsInit() === true) {
                         initModel();
@@ -295,11 +290,12 @@
                 }
 
                 // store data on grid element
-                jQuery.data(this, pluginName, {installed: 'true'});
+                jQuery.data(this, pluginName, { installed: 'true' });
 
                 storeData();
             } else if (options.debug === true) {
-                console.log('debug: {pluginName} is already installed on {element}'.replace('{pluginName}', pluginName).replace('{element}', this));
+                console.log('debug: {pluginName} is already installed on {element}'
+                    .replace('{pluginName}', pluginName).replace('{element}', this));
             }
         });
     };
