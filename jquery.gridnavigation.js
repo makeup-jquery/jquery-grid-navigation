@@ -1,7 +1,7 @@
 /**
 * @file jQuery collection plugin that implements the input and model for two-dimensional keyboard navigation
 * @author Ian McBurnie <ianmcburnie@hotmail.com>
-* @version 0.1.0
+* @version 1.0.0
 * @requires jquery
 * @requires jquery-common-keydown
 * @requires jquery-focus-exit
