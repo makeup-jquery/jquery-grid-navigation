@@ -1525,8 +1525,8 @@ eslint-scope@^3.7.1:
     estraverse "^4.1.1"
 
 eslint@^4:
-  version "4.8.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.8.0.tgz#229ef0e354e0e61d837c7a80fdfba825e199815e"
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.9.0.tgz#76879d274068261b191fe0f2f56c74c2f4208e8b"
   dependencies:
     ajv "^5.2.0"
     babel-code-frame "^6.22.0"
@@ -2416,13 +2416,13 @@ jasmine-core@^2:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.8.0.tgz#bcc979ae1f9fd05701e45e52e65d3a5d63f1a24e"
 
-jquery-common-keydown@~0.3:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/jquery-common-keydown/-/jquery-common-keydown-0.3.1.tgz#10d013a6bf331033cd4668aec97a4b948142dd90"
+jquery-common-keydown@^1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jquery-common-keydown/-/jquery-common-keydown-1.0.1.tgz#4b6d99dae5c20ffa9bc937b1652fb4620ca9f1f6"
 
-jquery-focus-exit@~0.3:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/jquery-focus-exit/-/jquery-focus-exit-0.3.1.tgz#a17d04d1a2c90b56168714ce6794accaf357e7a1"
+jquery-focus-exit@^1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jquery-focus-exit/-/jquery-focus-exit-1.0.1.tgz#76b5686bb464d07f9be45ef3888216305ced8046"
 
 jquery@>=1.11:
   version "3.2.1"
@@ -3232,8 +3232,8 @@ osenv@^0.1.4:
     os-tmpdir "^1.0.0"
 
 parallelshell@^3:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/parallelshell/-/parallelshell-3.0.1.tgz#0587ce1535350543916d8f3d329fbfa4a0355f22"
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/parallelshell/-/parallelshell-3.0.2.tgz#fffc55aaa145bdd44b5381cf7fd5e521fc21aa7b"
 
 parse-glob@^3.0.4:
   version "3.0.4"
